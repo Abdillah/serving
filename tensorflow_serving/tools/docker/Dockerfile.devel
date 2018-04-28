@@ -45,7 +45,8 @@ RUN mkdir /bazel && \
     cd / && \
     rm -f /bazel/bazel-$BAZEL_VERSION-installer-linux-x86_64.sh
 
-RUN git clone --recurse-submodules https://github.com/tensorflow/serving tfserver
-RUN cd ./tfserver && bazel build -c opt tensorflow_serving/...
+RUN echo "deb [arch=amd64] http://storage.googleapis.com/tensorflow-serving-apt stable tensorflow-model-server tensorflow-model-server-universal" | tee /etc/apt/sources.list.d/tensorflow-serving.list
+RUN curl https://storage.googleapis.com/tensorflow-serving-apt/tensorflow-serving.release.pub.gpg | apt-key add -
+RUN apt-get -yy update && apt-get install -yy tensorflow-model-server
 
 CMD ["/bin/bash"]
