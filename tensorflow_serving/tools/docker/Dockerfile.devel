@@ -49,4 +49,8 @@ RUN echo "deb [arch=amd64] http://storage.googleapis.com/tensorflow-serving-apt 
 RUN curl https://storage.googleapis.com/tensorflow-serving-apt/tensorflow-serving.release.pub.gpg | apt-key add -
 RUN apt-get -yy update && apt-get install -yy tensorflow-model-server
 
+RUN add-apt-repository ppa:ubuntu-toolchain-r/test -y
+RUN apt-get update
+RUN apt-get install -y libstdc++6
+
 CMD ["/bin/bash"]
